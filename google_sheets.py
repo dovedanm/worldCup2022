@@ -2,7 +2,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 
-def get_all_tips_from_google_sheets():
+def get_all_tips_from_google_sheets(spreadsheet_id, range_name):
     scopes = ["https://www.googleapis.com/auth/spreadsheets"]
     service_account_file = "credentials.json"
 
@@ -10,8 +10,6 @@ def get_all_tips_from_google_sheets():
         service_account_file, scopes=scopes
     )
 
-    spreadsheet_id = "1yHSTmSJpLCh_2Vf_tUeuRbjAstHE8nricPExhO6I3_o"
-    range_name = "TIPS!C2:AY150"
     service = build("sheets", "v4", credentials=creds)
 
     # Call the Sheets API

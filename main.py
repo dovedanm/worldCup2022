@@ -3,13 +3,12 @@ from PIL import Image, ImageDraw, ImageFont
 
 def create_image(home, away, time):
     width = 1620
-    height = 4050
+    height = 2700
 
     font_tips = ImageFont.truetype("Arial_Black.ttf", size=100)
     font_time = ImageFont.truetype("Arial_Black.ttf", size=65)
 
     canvas = Image.new("RGB", (width, height))
-
     draw = ImageDraw.Draw(canvas)
 
     background = Image.open("photos/background.eps")
@@ -17,13 +16,15 @@ def create_image(home, away, time):
     canvas.paste(background)
 
     draw.text((630, 0), time, fill=(255, 255, 255), font=font_time)
-    draw.text((320, 70), "1X", fill=(255, 255, 255), font=font_tips)
-    draw.text((600, 70), "X", fill=(255, 255, 255), font=font_tips)
+    draw.text((310, 70), "1X", fill=(255, 255, 255), font=font_tips)
+    draw.text((620, 70), "X", fill=(255, 255, 255), font=font_tips)
     draw.text((850, 70), "X2", fill=(255, 255, 255), font=font_tips)
     draw.text((1090, 70), "12", fill=(255, 255, 255), font=font_tips)
 
     home_pic = Image.open(f"photos/{home}.eps")
     away_pic = Image.open(f"photos/{away}.eps")
+
+    # improve image resize quality
     home_pic.load(scale=4)
     away_pic.load(scale=4)
 
@@ -38,13 +39,13 @@ def create_image(home, away, time):
 
 def write_tips(home, away, match_tips):
     img = Image.open(f"output/{home}_{away}.png")
-    font = ImageFont.truetype("arial.ttf", size=35)
+    font = ImageFont.truetype("arialbd.ttf", size=35)
 
     offset1 = [4, 200]
-    offset1x = [300, 200]
-    offsetx = [570, 200]
-    offsetx2 = [820, 200]
-    offset12 = [1070, 200]
+    offset1x = [320, 200]
+    offsetx = [580, 200]
+    offsetx2 = [850, 200]
+    offset12 = [1110, 200]
     offset2 = [1350, 200]
 
     draw = ImageDraw.Draw(img)
@@ -89,3 +90,7 @@ def create_all_images_with_tips(fixtures, tips):
 
         create_image(home, away, time)
         write_tips(home, away, match)
+
+
+# https://docs.google.com/spreadsheets/d/1yHSTmSJpLCh_2Vf_tUeuRbjAstHE8nricPExhO6I3_o
+# create_all_images_with_tips(FIXTURES, get_all_tips_from_google_sheets(spreadsheet_id, range_name))
